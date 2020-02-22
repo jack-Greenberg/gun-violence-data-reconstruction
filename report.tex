@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+
+\title{Gun Violence Data Reconstruction Report}
+\author{Aydin O'Leary and Jack Greenberg }
+\date{February 2020}
+
+\begin{document}
+
+\maketitle
+
+\section*{Preliminary Outline [REMOVE THIS WHEN DONE]}
+
+\begin{itemize}
+    \item Context: Gun violence in America has been rising over the last 20-ish years. \cite{website:cdc-data}
+    \item Big Question: Can we use data reconstruction techniques to predict potential future causes of gun violence and fill in information about past gun violence events?
+    \item Small Question: Can we use SVD and PCA techniques to reconstruct data with the reasonable degree of accuracy required to predict potential gun violence events or fill in information about past gun violence events?
+    \item We plan to train our PCA on a section of the complete gun violence data. We'll then create a test set by removing elements from the rest of the complete data, then test our algorithm's accuracy by recreating the removed data. For these tests, we will get percentage accuracy of reconstruction. When we run the algorithm on incomplete data, we expect to get filled-in data back.
+    \item Some other questions about the project space: \begin{itemize}
+        \item What is the threshold for accuracy that our algorithm should have?
+        \item How anonymized should our reconstructed data be?
+        \item What are the implications of predictions that can be made in this space?
+        \item Have you seen Minority Report (2002)?
+    \end{itemize}
+\end{itemize}
+
+\section*{Summary}
+\section*{Introduction}
+\section*{Methods}
+\section*{Detailed Findings}
+\section*{Recommendations}
+
+\bibliographystyle{plain}
+\bibliography{bibliography} 
+
+\end{document}
