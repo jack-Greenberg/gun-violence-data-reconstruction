@@ -16,7 +16,8 @@
     \item Context: Gun violence in America has been rising over the last 20-ish years. \cite{website:cdc-data}
     \item Big Question: Can we use data reconstruction techniques to predict potential future causes of gun violence and fill in information about past gun violence events?
     \item Small Question: Can we use SVD and PCA techniques to reconstruct data with the reasonable degree of accuracy required to predict potential gun violence events or fill in information about past gun violence events?
-    \item We plan to train our PCA on a section of the complete gun violence data. We'll then create a test set by removing elements from the rest of the complete data, then test our algorithm's accuracy by recreating the removed data. For these tests, we will get percentage accuracy of reconstruction. When we run the algorithm on incomplete data, we expect to get filled-in data back.
+    \item We'll use the one hot encoding system \cite{website:wikipedia_one-hot} to represent non-numerical data in numbers (for example, the state in which the gun violence event took place).
+    \item We will divide our dataset into two chunks, one for training our algorithm and one for testing it. The training data will consist of the entries from 2013 through 2017, and we will run our tests on data from 2018.
     \item Some other questions about the project space: \begin{itemize}
         \item What is the threshold for accuracy that our algorithm should have?
         \item How anonymized should our reconstructed data be?
