@@ -3,7 +3,6 @@ import os
 from datetime import datetime
 import math
 
-ask;djf;klajsdkl;fja;lksdjf
 
 df = pd.read_csv('./duplicate.csv')
 df['month'] = 0
