@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{exercise}
+\usepackage{enumerate}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage[numbered, framed]{matlab-prettifier}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+
+\lstset{
+  style              = Matlab-editor,
+  basicstyle         = \mlttfamily,
+  escapechar         = ",
+  mlshowsectionrules = true,
+}
+
+\title{GVDRA Report and Recommendation\\
+\large{\textit{Gun Violence Data Reconstruction Algorithm} Analysis} \
+}
+\author{Aydin O'Leary and Jack Greenberg}
+\date{February 2020}
+
+\begin{document}
+
+\maketitle
+\section*{Summary}
+This report serves as an official guide to the $\textit{Gun Violence Data Reconstruction Algorithm}$, herein referred to as $\textbf{GDVRA}$. The report was written in response to concerns by $\textbf{LinAlgCo}$, herein referred to as the $\textbf{company}$, about the context and ethics of this algorithm in the real world. Our analysis answers the question: "What are the ethical implications around the use of singular-value decomposition to profile suspects of gun violence incidents?" We will specifically focus on \textit{multiple imputation by chained equations} (\textsc{MICE}) for data analysis and probabilistic data reconstruction. The $\textbf{Introduction}$ will provide background to the discussion, a detailed description of the algorithm, the main questions we are tackling. Our recommendation, in brief, is that this algorithm, while useful in cases of reconstructing past events and filling in crucial gaps, is not as appropriate in predictions of future events, and therefore should not be used in such cases.
+
+\section*{Introduction}
+GDVRA is an algorithm developed by police forces and detectives to aid in the classification, identification, and profiling of suspects. The algorithm is purported to be able to identify the number of perpetrators, as well as their genders and ages. However, this algorithm has the potential for vast discrimination if taken to an extreme. Certain cities and neighborhoods with high crime rates will likely experience higher police presence and surveillance as a result of the implementation of this algorithm. Some more ethics questions to consider:\\
+\be
+    \item "Accuracy" of algorithm vs "accuracy" in real life: since MICE doesn't know what happened, any result that's perfectly accurate by the definition of the algorithm may not be accurate by real-life standards.
+    \item Accuracy vs computing time: is it ethical to cut computing time shorter to get faster predictions at the tradeoff of accuracy? No, obviously, but then where's the stopping point? Theoretically, MICE can run through an infinite number of cycles, so maybe stopping it at any point is unethical (see above).
+\ee
+
+We now explain the mechanisms of the algorithm. The training dataset was scraped from the \textbf{Gun Violence Archive} and uploaded to Github\cite{website:github_jamesqo_gun-violence-data}. This data was cleaned up and organized to fit the algorithm better using the \textit{one hot} method, which works by encoding a dataset into a set of binary fields. For example, the raw dataset include information about the state in which the incident took place, so one-hot encodes that as a value like \texttt{is\_California} or \texttt{is\_Texas} so that data can be encoded numerically and can be used in the algorithm. 
+
+After the data is cleaned, the algorithm uses multiple imputation of missing data by way of multiple regression on the data. At a surface level, the algorithm works in 5 steps\cite{mice-paper}:
+
+\be
+\item A simple imputation of data is performed, using the mean of the dataset to fill in missing values.
+\item For a single variable, the missing values are removed.
+\item For each observation (row/incident), regression is performed to fill in the missing value for the variable chose in step 2.
+\item Steps 2-3 are performed for each variable with missing data.
+\item Steps 1-4 are repeated multiple times to improve accuracy.
+\ee
+
+The broad question we must ask ourselves with an algorithm like this is, "what are the ethical implications of an algorithm that uses historic data to fill in missing data about gun violence incidents?" An algorithm like this in the hands of police could easily lead to increased police presence in areas of high crime, and, if combined with facial recognition algorithms like \textsc{Eigenfaces}, could lead to widespread racial profiling, police mistrust, and the perpetuation of violent crime in low-income areas. We will tackle the sub-question: "do the results of the algorithm disproportionately profile a certain group of people in a certain area more than others?" 
+
+\section*{Methods}
+The algorithm begins by cleaning the data. A one-hot encoding method is used to transform month, day of week, and state into a logical data value (0 or 1) so that the algorithm can process it. One-hot is used instead of numerical values for month and day of week because linear combinations of weekdays or months wouldn't make very much sense.
+
+We plan on implementing MICE (Multiple Imputation by Chained Equations). We know this is possible \cite{website:mcmc-book}. MICE iteratively improves guesses at missing data values with Bayesian linear regression. [REPLACE WITH EQUATIONS ONCE WE HAVE A FULL HANDLE ON THIS]
+
+\section*{Detailed Findings}
+
+not yet
+
+\section*{Recommendations}
+Many of the criticisms leveled against criminal profiling of serial killers can also be applied to this algorithm. For example, criminal profiling is often accused of correlating variables that don't affect each other  \cite{profiling_validity}. For this reason, we believe our algorithm should only be used for extremely broad demographic strokes concerning the perpetrator, as well as several broad details of the shooting, such as how many guns the perpetrator used.
+[SOME STUFF ABOUT ETHICS QUESTION #1 ABOVE, resolved if accuracy in the model turns out to be accuracy in real life]
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+
+\end{document}
