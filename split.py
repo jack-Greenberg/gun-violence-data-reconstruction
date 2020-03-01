@@ -1,4 +1,5 @@
 import pandas as pd
+from sklearn.linear_model import LinearRegression
 
 df = pd.read_csv('clean.csv')
 
@@ -13,13 +14,17 @@ known = ['n_killed', 'n_injured', 'Victim', 'state_Alabama', 'state_Alaska', 'st
 
 unknown = ['n_guns_involved', 'Adult 18+', 'Teen 12-17', 'Child 0-11', 'Male', 'Female', 'Subject-Suspect']
 
-training_known = df_training[known]
+training_known = pd.read_csv('training_known.csv') # df_training[known]
 training_unknown = df_training[unknown]
 
 test_known = df_test[known]
 test_unknown = df_test[unknown]
 
+reg = LinearRegression().fit(training_known, training_unknown)
+print(reg.predict(test_known))
+'''
 training_known.to_csv('training_known.csv')
 training_unknown.to_csv('training_unknown.csv')
 test_known.to_csv('test_known.csv')
 test_unknown.to_csv('test_unknown.csv')
+'''
